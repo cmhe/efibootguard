@@ -30,6 +30,10 @@
 	if (verbosity) fprintf(o, __VA_ARGS__)
 #endif
 
+#ifndef UNUSED
+#define UNUSED(x) (void)(x)
+#endif
+
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>
