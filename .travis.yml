@@ -34,9 +34,9 @@ install:
 addons:
   coverity_scan:
     project:
-      name: "siemens/efibootguard"
+      name: "cmhe/efibootguard"
       description: "Build submitted via Travis CI"
-    notification_email: efibootguard-dev@googlegroups.com
+    notification_email: ch@denx.de
     build_command_prepend: "./.travis-build.sh coverity_prepare"
     build_command: "./.travis-build.sh coverity_build"
     branch_pattern: coverity_scan
