@@ -100,6 +100,7 @@ case "$TARGET_EFFECTIVE" in
             cat cppcheck_build.log
             exit -1
         fi
+	echo $(which cppcheck)
         prepare_build
         ./configure
 
