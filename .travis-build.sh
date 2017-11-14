@@ -59,6 +59,12 @@ install_cppcheck()
     rm -rf cppcheck
 }
 
+install_clang_format()
+{
+    sudo apt-get install clang-format-3.9
+    CLANG_FORMAT='clang-format-3.9'
+}
+
 case "$TARGET_EFFECTIVE" in
     native)
         install_common_deps
@@ -136,6 +142,20 @@ case "$TARGET_EFFECTIVE" in
         exec /opt/cppcheck/bin/cppcheck -f -q --error-exitcode=2 \
             $enable $suppress $ignore $cpp_conf $includes .
         ;;
+    formatcheck)
+        install_clang_format
+        RET=0
+        while read FILE; do
+            while read ERROR; do
+		if [ -n "$ERROR" ]; then
+                    RET=1
+                    echo $FILE: $ERROR
+		fi
+            done <<< "$($CLANG_FORMAT -output-replacements-xml $FILE \
+                | grep 'offset')"
+        done <<< "$(find . -type f -iname '*.[hc]' | grep -v "tests/fff")"
+        exit $RET
+	;;
     coverity_prepare)
         install_common_deps
         install_native_deps

@@ -15,6 +15,7 @@ env:
     - TARGET=native
     - TARGET=i586
     - TARGET=cppcheck
+    - TARGET=formatcheck
 language: c
 
 compiler:
