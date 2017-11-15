@@ -146,13 +146,9 @@ case "$TARGET_EFFECTIVE" in
         install_clang_format
         RET=0
         while read FILE; do
-            while read ERROR; do
-		if [ -n "$ERROR" ]; then
-                    RET=1
-                    echo $FILE: $ERROR
-		fi
-            done <<< "$($CLANG_FORMAT -output-replacements-xml $FILE \
-                | grep 'offset')"
+            $CLANG_FORMAT -output-replacements-xml $FILE | \
+		    python3 .travis-formatpatch.py $FILE || \
+		    RET=$?
         done <<< "$(find . -type f -iname '*.[hc]' | grep -v "tests/fff")"
         exit $RET
 	;;
