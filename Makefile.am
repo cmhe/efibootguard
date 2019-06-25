@@ -125,6 +125,7 @@ efi_sources = \
 	drivers/watchdog/init_array_start.S \
 	drivers/watchdog/i6300esb.c \
 	drivers/watchdog/atom-quark.c \
+	drivers/watchdog/wdat-wdg.c \
 	drivers/watchdog/itco.c \
 	drivers/watchdog/init_array_end.S \
 	env/syspart.c \
